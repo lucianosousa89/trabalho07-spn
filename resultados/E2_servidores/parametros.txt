@@ -1,0 +1,7 @@
+E2 - Capacidade de processamento (3 configuracoes de recursos)
+Varredura (aba Scenarios): NUM_SERVIDORES de 2 a 4, 3 passos, sem "Consider as rate".
+Niveis: c = 2, 3, 4 servidores.
+Fixos: TEMPO_CHEGADA = 0.025 s (lambda = 40 req/s), TAXA_SERVICO = 20 req/s, CAPACIDADE_SISTEMA = 20.
+
+Nota: no CSV limpo, a coluna do parametro varrido foi renomeada (NUM_SERVIDORES -> c_servidores,
+CAPACIDADE_SISTEMA -> K_capacidade). O arquivo *_tabela_original.txt mantem o texto como copiado do Jupiter.

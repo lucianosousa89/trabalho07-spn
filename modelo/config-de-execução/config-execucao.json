@@ -1,0 +1,27 @@
+{
+  "name": "config-1794862923306",
+  "executionType": "spn_stationary_simulation",
+  "simulationTime": 10000,
+  "samplingPoints": 100,
+  "confidenceLevel": 0.95,
+  "maxRelativeError": 0.05,
+  "advancedOptions": {
+    "debug": false,
+    "parallelism": 4,
+    "timeoutMs": 30000,
+    "maxStates": null,
+    "tolerance": 1e-10,
+    "numericPolicy": "stable_f64",
+    "precisionBits": 256,
+    "deterministicReduction": false,
+    "maxAbsoluteError": 0,
+    "repetitions": null,
+    "minSamples": 30,
+    "maxSamples": 250,
+    "warmupTime": 500,
+    "maxEvents": 20000000,
+    "seed": 52
+  },
+  "createdAt": "2026-11-16T21:02:03.306Z",
+  "updatedAt": "2026-11-16T21:02:03.306Z"
+}

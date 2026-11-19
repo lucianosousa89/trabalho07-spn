@@ -1,0 +1,5 @@
+﻿Metric;Value;Min;Max;Std.Dev;Samples;CI Lower;CI Upper;Half-Width
+Probabilidade_Bloqueio;0.000076;0.0000;0.0031;0.0003;250;0.0000;0.0001;0.0000
+Taxa_Processamento;20.005445;19.8040;20.1769;0.0614;250;19.9978;20.0131;0.0076
+Tempo_Medio_Resposta;0.066690;0.0661;0.0674;0.0002;250;0.0667;0.0667;0.0000
+Utilizacao_Servidores;50.013612;49.5100;50.4423;0.1536;250;49.9946;50.0326;0.0190

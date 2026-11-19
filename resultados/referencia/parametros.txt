@@ -1,0 +1,2 @@
+Cenario de referencia: lambda = 40 req/s (TEMPO_CHEGADA = 0.025 s), TAXA_SERVICO = 20 req/s,
+NUM_SERVIDORES = 3, CAPACIDADE_SISTEMA = 20. Mesmo resultado do cenario B do E4.

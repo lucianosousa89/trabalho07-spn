@@ -1,0 +1,8 @@
+E1 - Taxa de chegada (5 niveis de demanda)
+Varredura (aba Scenarios): TEMPO_CHEGADA com "Consider as rate", de 20 a 100, 5 passos.
+Niveis: lambda = 20, 40, 60, 80, 100 req/s (TEMPO_CHEGADA = 1/lambda s).
+Fixos: TAXA_SERVICO = 20 req/s por servidor, NUM_SERVIDORES = 3, CAPACIDADE_SISTEMA = 20.
+
+Nota: no Jupiter a coluna aparece como "1/TEMPO_CHEGADA" (opcao "Consider as rate").
+Ela e a taxa de chegada lambda em req/s. No arquivo E1_demanda.csv foi renomeada para lambda_req_s;
+E1_demanda_tabela_original.txt mantem o texto exatamente como copiado do Jupiter.

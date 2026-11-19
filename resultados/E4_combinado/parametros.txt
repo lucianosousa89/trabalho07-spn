@@ -1,0 +1,6 @@
+E4 - Demanda e recursos combinados (3 cenarios), simulacoes individuais.
+A: lambda = 20 req/s (TEMPO_CHEGADA = 0.05),   NUM_SERVIDORES = 2
+B: lambda = 40 req/s (TEMPO_CHEGADA = 0.025),  NUM_SERVIDORES = 3  (cenario de referencia)
+C: lambda = 80 req/s (TEMPO_CHEGADA = 0.0125), NUM_SERVIDORES = 5
+Fixos: TAXA_SERVICO = 20 req/s, CAPACIDADE_SISTEMA = 20.
+Arquivos: CSV exportados pelo Jupiter (uma linha por metrica, com media, intervalo de confianca de 95% e amostras).

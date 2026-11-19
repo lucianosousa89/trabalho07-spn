@@ -1,0 +1,2 @@
+﻿cenario;lambda_req_s;tempo_medio_entre_chegadas_s;mu_req_s_por_servidor;c_servidores;K_capacidade;DP_probabilidade_descarte_pct;TP_throughput_req_s;U_utilizacao_servidores_pct;MRT_tempo_medio_resposta_s
+K=15;40;0.025000;20;3;15;0.1153;39.9718;66.6196;0.0714

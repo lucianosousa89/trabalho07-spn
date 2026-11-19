@@ -1,0 +1,392 @@
+{
+  "modelName": "trabalho07-sd-final-t",
+  "places": [
+    {
+      "name": "Aguardando_Decisao",
+      "initialMarking": 0,
+      "stringMarking": "0",
+      "initialStringMarking": "0",
+      "id": "p1",
+      "x": 108,
+      "y": 314.5999984741211
+    },
+    {
+      "name": "Fila_Espera",
+      "initialMarking": 0,
+      "stringMarking": "0",
+      "initialStringMarking": "0",
+      "id": "p2",
+      "x": 602.2495161420331,
+      "y": 314.5999984741211
+    },
+    {
+      "name": "Em_Atendimento",
+      "initialMarking": 0,
+      "stringMarking": "0",
+      "initialStringMarking": "0",
+      "id": "p3",
+      "x": 1037.4528182117679,
+      "y": 314.5999984741211
+    },
+    {
+      "name": "Vagas_Livres",
+      "initialMarking": 20,
+      "stringMarking": "CAPACIDADE_SISTEMA",
+      "initialStringMarking": "CAPACIDADE_SISTEMA",
+      "id": "p4",
+      "x": 348.0220026568802,
+      "y": 533.996065638885
+    },
+    {
+      "name": "Servidores_Livres",
+      "initialMarking": 3,
+      "stringMarking": "NUM_SERVIDORES",
+      "initialStringMarking": "NUM_SERVIDORES",
+      "id": "p5",
+      "x": 822.452818211768,
+      "y": 105.03829239733676
+    }
+  ],
+  "definitions": [
+    {
+      "name": "TEMPO_SERVICO",
+      "type": "DOUBLE",
+      "value": "0.05",
+      "id": "param1794760000001"
+    },
+    {
+      "name": "NUM_SERVIDORES",
+      "type": "INTEGER",
+      "value": "3",
+      "id": "param1794580611548"
+    },
+    {
+      "name": "CAPACIDADE_SISTEMA",
+      "type": "INTEGER",
+      "value": "20",
+      "id": "param1794580629844"
+    },
+    {
+      "name": "TEMPO_CHEGADA",
+      "type": "DOUBLE",
+      "value": "0.025",
+      "id": "param1794750054589"
+    }
+  ],
+  "rewardMeasures": [
+    {
+      "name": "Taxa_Processamento",
+      "expression": "E{#Em_Atendimento} / TEMPO_SERVICO",
+      "id": "metric1794595595265",
+      "unit": "req/s"
+    },
+    {
+      "name": "Utilizacao_Servidores",
+      "expression": "E{#Em_Atendimento} / NUM_SERVIDORES * 100",
+      "id": "metric1794595735647",
+      "unit": "%"
+    },
+    {
+      "name": "Probabilidade_Bloqueio",
+      "expression": "P{#Vagas_Livres = 0} * 100",
+      "id": "metric1794595795511",
+      "unit": "%"
+    },
+    {
+      "name": "Tempo_Medio_Resposta",
+      "expression": "(E{#Fila_Espera} + E{#Em_Atendimento}) / (E{#Em_Atendimento} / TEMPO_SERVICO)",
+      "id": "metric1794595821046",
+      "unit": "s"
+    }
+  ],
+  "transitions": [
+    {
+      "name": "Gera_Requisicao",
+      "type": "TIMED",
+      "firingPolicy": "SINGLE_SERVER",
+      "raceType": "RACE_WITH_ENABLING_MEMORY",
+      "priority": 1,
+      "inputArcs": [],
+      "outputArcs": [
+        {
+          "type": "OUTPUT",
+          "place": "Aguardando_Decisao",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "inhibitorArcs": [],
+      "distribution": {
+        "type": "exponential",
+        "parameters": {
+          "Mean delay": "TEMPO_CHEGADA"
+        }
+      },
+      "id": "t1",
+      "x": -84.40204976554787,
+      "y": 314.5999984741211
+    },
+    {
+      "name": "Admite_Requisicao",
+      "type": "IMMEDIATE",
+      "firingPolicy": "SINGLE_SERVER",
+      "raceType": "RACE_WITH_ENABLING_MEMORY",
+      "priority": 1,
+      "inputArcs": [
+        {
+          "type": "INPUT",
+          "place": "Aguardando_Decisao",
+          "multiplicity": 1,
+          "weight": 1
+        },
+        {
+          "type": "INPUT",
+          "place": "Vagas_Livres",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "outputArcs": [
+        {
+          "type": "OUTPUT",
+          "place": "Fila_Espera",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "inhibitorArcs": [],
+      "weight": 1,
+      "id": "t2",
+      "x": 348.0220026568802,
+      "y": 314.5999984741211
+    },
+    {
+      "name": "Descarta_Requisicao",
+      "type": "IMMEDIATE",
+      "firingPolicy": "SINGLE_SERVER",
+      "raceType": "RACE_WITH_ENABLING_MEMORY",
+      "priority": 1,
+      "inputArcs": [
+        {
+          "type": "INPUT",
+          "place": "Aguardando_Decisao",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "outputArcs": [],
+      "inhibitorArcs": [
+        {
+          "type": "INHIBITOR",
+          "place": "Vagas_Livres",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "weight": 1,
+      "id": "t3",
+      "x": 108,
+      "y": 533.996065638885
+    },
+    {
+      "name": "Finaliza_Atendimento",
+      "type": "TIMED",
+      "firingPolicy": "INFINITY_SERVER",
+      "raceType": "RACE_WITH_ENABLING_MEMORY",
+      "priority": 1,
+      "inputArcs": [
+        {
+          "type": "INPUT",
+          "place": "Em_Atendimento",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "outputArcs": [
+        {
+          "type": "OUTPUT",
+          "place": "Servidores_Livres",
+          "multiplicity": 1,
+          "weight": 1
+        },
+        {
+          "type": "OUTPUT",
+          "place": "Vagas_Livres",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "inhibitorArcs": [],
+      "distribution": {
+        "type": "exponential",
+        "parameters": {
+          "Mean delay": "TEMPO_SERVICO"
+        }
+      },
+      "id": "t4",
+      "x": 1270.2914171485274,
+      "y": 314.5999984741211,
+      "labelX": 1270.2914171485274,
+      "labelY": 354.599998474121
+    },
+    {
+      "name": "Inicia_Atendimento",
+      "type": "IMMEDIATE",
+      "firingPolicy": "SINGLE_SERVER",
+      "raceType": "RACE_WITH_ENABLING_MEMORY",
+      "priority": 1,
+      "inputArcs": [
+        {
+          "type": "INPUT",
+          "place": "Fila_Espera",
+          "multiplicity": 1,
+          "weight": 1
+        },
+        {
+          "type": "INPUT",
+          "place": "Servidores_Livres",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "outputArcs": [
+        {
+          "type": "OUTPUT",
+          "place": "Em_Atendimento",
+          "multiplicity": 1,
+          "weight": 1
+        }
+      ],
+      "inhibitorArcs": [],
+      "weight": 1,
+      "id": "t5",
+      "x": 822.452818211768,
+      "y": 314.5999984741211
+    }
+  ],
+  "visualElements": [],
+  "arcs": [
+    {
+      "id": "a1",
+      "source": "t1",
+      "target": "p1",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "straight"
+    },
+    {
+      "id": "a2",
+      "source": "p1",
+      "target": "t2",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "straight"
+    },
+    {
+      "id": "a3",
+      "source": "p1",
+      "target": "t3",
+      "type": "normal",
+      "weight": "1",
+      "targetAnchorAngle": 270,
+      "lineType": "straight",
+      "sourceAnchorAngle": 90
+    },
+    {
+      "id": "a4",
+      "source": "p4",
+      "target": "t2",
+      "type": "normal",
+      "weight": "1",
+      "targetAnchorAngle": 270,
+      "lineType": "straight",
+      "sourceAnchorAngle": 270
+    },
+    {
+      "id": "a5",
+      "source": "t2",
+      "target": "p2",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "straight"
+    },
+    {
+      "id": "a6",
+      "source": "p2",
+      "target": "t5",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 164.73527349195126,
+      "lineType": "straight"
+    },
+    {
+      "id": "a8",
+      "source": "t5",
+      "target": "p3",
+      "type": "normal",
+      "weight": "1",
+      "targetAnchorAngle": 180,
+      "lineType": "straight",
+      "sourceAnchorAngle": 15.66102305043347
+    },
+    {
+      "id": "a9",
+      "source": "p3",
+      "target": "t4",
+      "type": "normal",
+      "weight": "1",
+      "sourceAnchor": "right",
+      "targetAnchorAngle": 180,
+      "lineType": "straight"
+    },
+    {
+      "id": "a10",
+      "source": "t4",
+      "target": "p5",
+      "type": "normal",
+      "weight": "1",
+      "targetAnchorAngle": 0,
+      "lineType": "straight",
+      "sourceAnchorAngle": 279.0829175957648
+    },
+    {
+      "id": "a7",
+      "source": "p5",
+      "target": "t5",
+      "type": "normal",
+      "weight": "1",
+      "targetAnchorAngle": 270,
+      "lineType": "straight",
+      "sourceAnchorAngle": 90
+    },
+    {
+      "id": "a11",
+      "source": "t4",
+      "target": "p4",
+      "type": "normal",
+      "weight": "1",
+      "targetAnchorAngle": 0,
+      "lineType": "straight",
+      "sourceAnchorAngle": 102.83148907185739
+    },
+    {
+      "id": "a12",
+      "source": "p4",
+      "target": "t3",
+      "type": "inhibitor",
+      "weight": "1",
+      "targetAnchorAngle": 329.56243088276256,
+      "lineType": "straight",
+      "sourceAnchorAngle": 180
+    }
+  ],
+  "chartSquare": false,
+  "timeUnit": "s"
+}

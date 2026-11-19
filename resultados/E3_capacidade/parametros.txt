@@ -1,0 +1,9 @@
+E3 - Capacidade do sistema (3 limites)
+Varredura (aba Scenarios): CAPACIDADE_SISTEMA de 5 a 20, sem "Consider as rate".
+Niveis usados no artigo: K = 5, 10, 20.
+O nivel K = 15 foi executado em uma varredura anterior com 4 niveis; nao entra no artigo
+(E3_nivel_extra_K15.csv, valores transcritos da tela do Jupiter).
+Fixos: TEMPO_CHEGADA = 0.025 s (lambda = 40 req/s), TAXA_SERVICO = 20 req/s, NUM_SERVIDORES = 3.
+
+Nota: no CSV limpo, a coluna do parametro varrido foi renomeada (NUM_SERVIDORES -> c_servidores,
+CAPACIDADE_SISTEMA -> K_capacidade). O arquivo *_tabela_original.txt mantem o texto como copiado do Jupiter.
